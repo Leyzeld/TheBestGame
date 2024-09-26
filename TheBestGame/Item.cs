@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheBestGame
 {
-    class Item
+    public class Item
     {
     }
 }

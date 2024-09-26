@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TheBestGame
 {
-    class Inventory
+    public class Inventory
     {
         List<Item> items;
 
@@ -16,9 +16,10 @@ namespace TheBestGame
             items = new List<Item>();
         }
 
-        public List<Item> GetItems()
+        public List<Item> Items
         {
-            return items;
+            get { return items; }
+            
         }
 
         public void AddItem(Item _item)

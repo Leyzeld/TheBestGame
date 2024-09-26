@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TheBestGame
 {
-    class Damage
+    public class Damage
     {
         private int result_damage;
         private bool crit;
@@ -16,17 +16,17 @@ namespace TheBestGame
             result_damage = _result_damage;
             crit = _crit;
         }
-        public int GetResultDamage()
+        public int Result_damage
         {
-            return result_damage;
+            get { return result_damage; }
         }
-        public bool GetCrit()
+        public bool Crit
         {
-            return crit;
+            get { return crit; }
         }
     }
 
-    class Weapon : Item
+    public class Weapon : Item
     {
         private int id;
         private Bitmap skin;
@@ -41,54 +41,70 @@ namespace TheBestGame
 
         public Weapon()
         {
+            id = 1;
             name = "test sword";
             min_damage = 10;
             max_damage = 20;
             crit_damage_chance = 20;
+            price = 111;
         }
-        public Weapon(string _name,
+        public Weapon(int _id,
+                      string _name,
                       int _min_damage,
                       int _max_damage,
                       int _crit_damage_chance)
         {
+            id = _id;
             name = _name;
             min_damage = _min_damage;
             max_damage = _max_damage;
             crit_damage_chance = _crit_damage_chance;
         }
 
-        public string GetName()
+        public Weapon(Weapon _weapon)
         {
-            return name;
+            id = _weapon.Id;
+            name = _weapon.Name;
+            min_damage = _weapon.MinDamage;
+            max_damage = _weapon.MaxDamage;
+            crit_damage_chance = _weapon.CritChance;
+            crit_damage_multiplier = _weapon.CritMultiplier;
         }
 
-        public int GetMinDamage()
+        public int Id
         {
-            return min_damage;
+            get { return id; }
+        }
+        public string Name
+        {
+            get { return name; }
         }
 
-        public int GetMaxDamage()
+        public int MinDamage
         {
-            return max_damage;
+            get { return min_damage; }
         }
 
-        public int GetCritChance()
+        public int MaxDamage
         {
-            return crit_damage_chance;
+            get { return max_damage; }
         }
 
-        public double GetCritMultiplier()
+        public int CritChance
         {
-            return crit_damage_multiplier;
+            get { return crit_damage_chance; }
         }
-        public int GetPrice()
+
+        public double CritMultiplier
         {
-            return price;
+            get { return crit_damage_multiplier; }
         }
-        public void SetPrice(int _price)
+        public int Price
         {
-            price = _price;
+            get { return price; }
+            set { price = value; }
         }
+        
         public Damage GetDamage()
         {
             int damage = GetNumberFromInterval(min_damage, max_damage);

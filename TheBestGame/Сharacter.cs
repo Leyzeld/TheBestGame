@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheBestGame
 {
-    class Сharacter
+    public class Character
     {
         private int level;
         private int health_points;
@@ -17,7 +17,7 @@ namespace TheBestGame
         private Shield shield;
         private int defense;
 
-        public Сharacter()
+        public Character()
         {
             level = 1;
             health_points = 100;
@@ -29,7 +29,7 @@ namespace TheBestGame
             CalculateDefense();
         }
 
-        public Сharacter(int _level,
+        public Character(int _level,
 
                          int _health_points,
                          Weapon _weapon,
@@ -51,84 +51,89 @@ namespace TheBestGame
             CalculateDefense();
         }
 
-        public int GetLevel()
+        public Character(Character _character)
         {
-            return level;
+            level = _character.Level;
+            health_points = _character.HealthPoints;
+            weapon = new Weapon(_character.Weapon);
+            helmet = new Helmet(_character.Helment);
+            torso = new Torso(_character.Torso);
+            leggings = new Leggings(_character.Leggings);
+            shield = new Shield(_character.Shield);
+            defense = _character.Defense;
         }
 
-        public int GetHealthPoints()
+        public Damage Attack()
         {
-            return health_points;
+            return weapon.GetDamage();
         }
 
-        public Weapon GetWeapon()
+        public void TakeDamage(Damage damage)
         {
-            return weapon;
+            int dmg = damage.Result_damage;
+            int result_damage = dmg - defense;
+            if(result_damage <= 0)
+            {
+                return;
+            }
+            if(health_points - result_damage <= 0)
+            {
+                health_points = 0;
+                return;
+            }
+            health_points -= result_damage;
         }
 
-        public Helmet GetHelment()
+        public int Level
         {
-            return helmet;
+            get { return level; }
+            set { level = value; }
         }
 
-        public Torso GetTorso()
+        public int HealthPoints
         {
-            return torso;
+            get { return health_points; }
+            set { health_points = value; }
         }
 
-        public Leggings GetLeggings()
+        public Weapon Weapon
         {
-            return leggings;
+            get { return weapon; }
+            set { weapon = value; }
         }
 
-        public int GetDefense()
+        public Helmet Helment
         {
-            return defense;
+            get { return helmet; }
+            set { helmet = value; }
         }
 
-        public Shield GetShield()
+        public Torso Torso
         {
-            return shield;
+            get{ return torso; }
+            set { torso = value; }
         }
 
-        public void SetLevel(int _level)
+        public Leggings Leggings
         {
-            level = _level;
+            get{ return leggings; }
+            set{ leggings = value; }
         }
 
-        public void SetHealthPoints(int _health_points)
+        public int Defense
         {
-            health_points = _health_points;
+            get { return defense; }
         }
 
-        public void SetWeapon(Weapon _weapon)
+        public Shield Shield
         {
-            weapon = _weapon;
-        }
-
-        public void SetHelmet(Helmet _helmet)
-        {
-            helmet = _helmet;
-        }
-
-        public void SetTorso(Torso _torso)
-        {
-            torso = _torso;
-        }
-
-        public void SetLeggins(Leggings _leggings)
-        {
-            leggings = _leggings;
-        }
-
-        public void SetShield(Shield _shield)
-        {
-            shield = _shield;
+            get{ return shield; }
+            set { shield = value; }
         }
 
         private void CalculateDefense()
         {
-            defense = helmet.GetDefense() + torso.GetDefense() + leggings.GetDefense();
+            defense = helmet.Defense + torso.Defense + leggings.Defense;
         }
     }
 }
